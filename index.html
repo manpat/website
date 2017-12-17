@@ -6,7 +6,7 @@
 	<meta name="msapplication-navbutton-color" content="#1a1a1a">
 	<meta name="apple-mobile-web-app-status-bar-style" content="#1a1a1a">
 
-	<title>hello</title>
+	<title>Patrick Monaghan</title>
 	<style>
 		html {
 			width: 100%;
@@ -15,6 +15,7 @@
 			background: #222;
 			color: #ddd;
 			font-family: sans-serif;
+			overflow-x: hidden;
 		}
 
 		a, a:visited {
@@ -28,11 +29,169 @@
 		a:hover {
 			color: #b13551;
 		}
+
+		.navbar {
+			background: rgba(0, 0, 0, 0.23);
+			padding-top: 12px;
+			padding-bottom: 12px;
+			padding-left: 8px;
+			left: 0;
+			width: 100%;
+			position: absolute;
+		}
+
+		nav a, nav a:visited {
+			font-style: normal;
+			margin-right: 2em;
+			color: #828282;
+			font-size: 22px;
+			transition: color 0.3s cubic-bezier(0, 0.57, 0.05, 0.95);
+		}
+
+		nav a:hover {
+			color: #c1c1c1;
+		}
+
+		h1 {
+			color: #9a9a9a;
+			font-weight: bolder;
+			font-size: 3em;
+			margin-bottom: 0;
+		}
+
+		h2 {
+			margin-bottom: 0.25em;
+			margin-top: 0;
+			font-size: 2em;
+			color: #737373;
+		}
+
+		ul {
+			padding-left: 1em;
+			list-style-type: none;
+		}
+
+		li {
+			padding-bottom: 0.5em;
+		}
+
+		.content {
+			max-width: 40em;
+			margin-top: 70px;
+			font-size: 18px;
+		}
+
+		.roll {
+			color: #888888;
+		}
+
+		@media screen and (min-width: 450px) {
+			p { margin-bottom: 1.5em; }
+			.content {
+				margin-top: 90px;
+				font-size: 16px;
+			}
+
+			nav a, nav a:visited {
+				font-size: 22px;
+				margin-right: 1.5em;
+			}
+		}
+
+		@media screen and (min-width: 600px) {
+			.content {
+				margin-left: auto;
+				margin-right: auto;
+				width: 40em;
+			}
+
+			.navbar{ padding-left: 0px; }
+			body {
+				margin-left: auto;
+				margin-right: auto;
+				width: 40em;
+			}
+
+			nav {
+				margin-left: auto;
+				margin-right: auto;
+				width: 40em;
+			}
+		}
 	</style>
+
+	<script>
+		var sections = {};
+
+		function init() {
+			var content = document.getElementsByClassName("content")[0];
+			var children = content.children;
+
+			for(var i = 0; i < children.length; i++) {
+				var child = children[i];
+				sections['#'+child.id] = child;
+			}
+
+			show_section(location.hash);
+		}
+
+		function show_section(hash) {
+			if(hash === "#" || hash === "" || !hash) {
+				hash = "#projects";
+			}
+
+			if(!sections.hasOwnProperty(hash)) {
+				return;
+			}
+
+			for (var key in sections) {
+				if(!sections.hasOwnProperty(key))
+					continue;
+
+				var section = sections[key];
+				section.style.display = (key === hash)? "block" : "none";
+			}
+
+		}
+	</script>
 </head>
-<body>
-	<p>woops I don't have anything cool here yet sorry</p>
-	<p>maybe you <em>actually</em> meant to go <a href="/garden">here</a>?</p>
-	<p>or maybe <a href="/crystal">here</a> even?</p>
+<body onload="init()" onhashchange="show_section(location.hash)">
+	<h1>Patrick Monaghan</h1>
+	<h2>Games Programmer</h2>
+	<div class="navbar">
+		<nav>
+			<a href="#projects">Hello</a>
+			<a href="#about">About</a>
+			<a href="#contact">Contact</a>
+		</nav>
+	</div>
+	<div class="content">
+		<div id="projects" style="display: none">
+			<p>woops I don't have anything cool here yet sorry</p>
+			<p>maybe you <em>actually</em> meant to go <a href="/garden">here</a>?</p>
+			<p>or maybe <a href="/crystal">here</a> even?</p>
+		</div>
+		<div id="about" style="display: none">
+			<p>Hi! I'm a self taught programmer of about 10 years - and specialise in games and game-adjacent things.
+			My primary language is C++ but have experience in C#, and have recently taken to Rust as my goto for personal projects<br/>
+			I've also dabbled with D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
+
+			<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
+			Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
+
+			<ul>
+				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em> for just over a year</li>
+				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em> in 2015</li>
+				<li><span class="roll">Intern</span> at <em>Valhalla Bifrost</em> in 2012</li>
+			</ul>
+
+			<p>Currently based in London, UK</p>
+		</div>
+		<div id="contact">
+			<p>fillme fillme fillme</p>
+			<p>fillme fillme fillme</p>
+			<p>fillme fillme fillme</p>
+		</div>
+	</div>
 </body>
 </html>
