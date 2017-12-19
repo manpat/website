@@ -31,7 +31,7 @@
 		}
 
 		.navbar {
-			background: rgba(0, 0, 0, 0.23);
+			background: rgba(0, 0, 0, 0.16);
 			padding-top: 12px;
 			padding-bottom: 12px;
 			padding-left: 8px;
@@ -121,18 +121,20 @@
 	</style>
 
 	<script>
-		var sections = {};
+		let sections = {};
 
 		function init() {
-			var content = document.getElementsByClassName("content")[0];
-			var children = content.children;
+			let content = document.getElementsByClassName("content")[0];
+			let children = content.children;
 
-			for(var i = 0; i < children.length; i++) {
-				var child = children[i];
+			for(let i = 0; i < children.length; i++) {
+				let child = children[i];
 				sections['#'+child.id] = child;
 			}
 
 			show_section(location.hash);
+
+			deobfuscate_email_pls();
 		}
 
 		function show_section(hash) {
@@ -144,14 +146,25 @@
 				return;
 			}
 
-			for (var key in sections) {
+			for (let key in sections) {
 				if(!sections.hasOwnProperty(key))
 					continue;
 
-				var section = sections[key];
+				let section = sections[key];
 				section.style.display = (key === hash)? "block" : "none";
 			}
+		}
 
+		// Apparently slightly obfuscating emails is enough to get around
+		// 	email-scraping bots, n' all that
+		// Too bad if you've got JS disabled :T
+		function deobfuscate_email_pls() {
+			let els = document.getElementsByClassName('email');
+			for(let el of els) {
+				let text = el.innerHTML.replace(/<sub>(\w+)<\/sub>/g,
+					(m, w) => ({"dot": '.', "at": '@', "_": "0x5f"})[w]);
+				el.innerHTML = `<a href="mailto:${text}">${text}</a>`;
+			}
 		}
 	</script>
 </head>
@@ -179,18 +192,25 @@
 			<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
 			Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
 
+			<p>I have several years experience with OpenGL, and have recently-ish become well acquainted with
+			emscripten (see: all current projects). I also have some limited experience with Android NDK</p>
+
 			<ul>
 				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em> for just over a year</li>
 				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em> in 2015</li>
 				<li><span class="roll">Intern</span> at <em>Valhalla Bifrost</em> in 2012</li>
 			</ul>
 
-			<p>Currently based in London, UK</p>
+			<p>Born in NZ, raised in Australia, currently in London</p>
 		</div>
-		<div id="contact">
-			<p>fillme fillme fillme</p>
-			<p>fillme fillme fillme</p>
-			<p>fillme fillme fillme</p>
+		<div id="contact" style="display: none">
+			<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
+			<!-- It's a bit informal but hey, that's like the essence of my being man -->
+			</p>
+
+			<p>However, I do have an email address if that suits better:
+				<span class="email"><sub>_</sub><sub>dot</sub>manpat<sub>at</sub>gmail<sub>dot</sub>com</span>
+			</p>
 		</div>
 	</div>
 </body>
