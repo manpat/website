@@ -22,12 +22,12 @@
 			text-decoration: none;
 			font-weight: bold;
 			font-style: italic;
-			color: #e06296;
-			transition: color 0.3s cubic-bezier(0, 0.57, 0.05, 0.95);
+			color: hsl(337, 46%, 54%);
+			transition: color 0.6s cubic-bezier(0.16, 0.79, 0.13, 0.78);
 		}
 
 		a:hover {
-			color: #b13551;
+			color: hsl(275, 52%, 64%);
 		}
 
 		.navbar {
@@ -71,8 +71,17 @@
 			list-style-type: none;
 		}
 
-		li {
-			padding-bottom: 0.5em;
+		li { padding-bottom: 0.5em; }
+
+		label + table { padding-top: 3px; }
+		table { border-spacing: 0px; }
+
+		tr {
+			height: 2.5em;
+		}
+
+		td:first-child {
+			padding-right: 10px;
 		}
 
 		.content {
@@ -81,8 +90,14 @@
 			font-size: 18px;
 		}
 
-		.roll {
-			color: #888888;
+		.roll { color: #888888; }
+
+		.kinda-hidden::before {
+			height: 50px;
+			width: 100%;
+			display: block;
+
+			content: "";
 		}
 
 		@media screen and (min-width: 450px) {
@@ -180,9 +195,24 @@
 	</div>
 	<div class="content">
 		<div id="projects" style="display: none">
-			<p>woops I don't have anything cool here yet sorry</p>
-			<p>maybe you <em>actually</em> meant to go <a href="/garden">here</a>?</p>
-			<p>or maybe <a href="/crystal">here</a> even?</p>
+			<p>Hey! This is all pretty barebones at the moment but I'm working on <a href="https://github.com/manpat/website">it</a>!</p>
+
+			<label>In the meantime, here's a very short list of my most recent and simply-named projects:</label>
+			<table><tbody>
+				<tr>
+					<td><a href="/garden">Garden</a></td>
+					<td>An experiment in drawing things a different way than I'm used to</td>
+				</tr>
+				<tr>
+					<td><a href="/crystal">Crystal</a></td>
+					<td>A shiny crystal generator - written as an excuse to play with half-edge lists and fancy shaders</td>
+				</tr>
+			</tbody></table>
+
+			<div class="kinda-hidden">
+				Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
+				There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
+			</div>
 		</div>
 		<div id="about" style="display: none">
 			<p>Hi! I'm a self taught programmer of about 10 years - and specialise in games and game-adjacent things.
@@ -198,18 +228,20 @@
 			<ul>
 				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em> for just over a year</li>
 				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em> in 2015</li>
-				<li><span class="roll">Intern</span> at <em>Valhalla Bifrost</em> in 2012</li>
+				<li><span class="roll">Trainee</span> at <em>Valhalla Bifrost</em> in 2012</li>
 			</ul>
 
 			<p>Born in NZ, raised in Australia, currently in London</p>
 		</div>
 		<div id="contact" style="display: none">
 			<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
-			<!-- It's a bit informal but hey, that's like the essence of my being man -->
 			</p>
 
 			<p>However, I do have an email address if that suits better:
 				<span class="email"><sub>_</sub><sub>dot</sub>manpat<sub>at</sub>gmail<sub>dot</sub>com</span>
+			</p>
+
+			<p>Also: it's not really a means of contact but here's a link to my github: <a href="https://github.com/manpat">manpat</a><br/>
 			</p>
 		</div>
 	</div>
