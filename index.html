@@ -18,6 +18,17 @@
 			overflow-x: hidden;
 		}
 
+		canvas {
+			overflow: hidden;
+			display: block;
+			width: 100vw;
+			height: 100vh;
+			top: 0;
+			left: 0;
+			position: absolute;
+			z-index: -10;
+		}
+
 		a, a:visited {
 			text-decoration: none;
 			font-weight: bold;
@@ -150,6 +161,7 @@
 			show_section(location.hash);
 
 			deobfuscate_email_pls();
+			start_background_load();
 		}
 
 		function show_section(hash) {
@@ -180,6 +192,17 @@
 					(m, w) => ({"dot": '.', "at": '@', "_": "0x5f"})[w]);
 				el.innerHTML = `<a href="mailto:${text}">${text}</a>`;
 			}
+		}
+
+		function start_background_load() {
+			var script_node = document.createElement("script");
+
+			script_node.type = "text/javascript";
+			script_node.src = "/website_background.js";
+
+			document.head.appendChild(script_node);
+
+			console.log("started loading main");
 		}
 	</script>
 </head>
@@ -245,5 +268,6 @@
 			</p>
 		</div>
 	</div>
+	<canvas id="canvas"></canvas>
 </body>
 </html>

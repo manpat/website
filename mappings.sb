@@ -1,1 +1,3 @@
 / => index.html
+/website_background.js => background/target/asmjs-unknown-emscripten/debug/background.js
+# /website_background.js => background/target/asmjs-unknown-emscripten/release/background.js
