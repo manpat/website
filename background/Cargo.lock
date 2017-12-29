@@ -2,7 +2,7 @@
 name = "background"
 version = "0.1.0"
 dependencies = [
- "common 0.1.0 (git+https://github.com/manpat/common-rs.git)",
+ "common 0.1.0",
 ]
 
 [[package]]
@@ -13,7 +13,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "common"
 version = "0.1.0"
-source = "git+https://github.com/manpat/common-rs.git#71a64827271203c9c787044039c99e8224e3cda1"
 dependencies = [
  "rand 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -48,7 +47,6 @@ dependencies = [
 
 [metadata]
 "checksum bitflags 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "b3c30d3802dfb7281680d6285f2ccdaa8c2d8fee41f93805dba5c4cf50dc23cf"
-"checksum common 0.1.0 (git+https://github.com/manpat/common-rs.git)" = "<none>"
 "checksum fuchsia-zircon 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)" = "bd510087c325af53ba24f3be8f1c081b0982319adcb8b03cad764512923ccc19"
 "checksum fuchsia-zircon-sys 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)" = "08b3a6f13ad6b96572b53ce7af74543132f1a7055ccceb6d073dd36c54481859"
 "checksum libc 0.2.34 (registry+https://github.com/rust-lang/crates.io-index)" = "36fbc8a8929c632868295d0178dd8f63fc423fd7537ad0738372bd010b3ac9b0"

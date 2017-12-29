@@ -6,7 +6,6 @@
 #![feature(const_fn)]
 
 extern crate common;
-
 pub use common::*;
 
 #[macro_use] pub mod bindings;
@@ -18,7 +17,6 @@ pub mod rendering;
 pub mod webgl;
 
 pub mod paper;
-// pub mod particle;
 
 pub use bindings::emscripten::*;
 pub use coro_util::*;
@@ -28,10 +26,19 @@ pub use paper::*;
 pub use rendering::gl;
 pub use rendering::shader::*;
 
+use rand::Rng;
+
 use std::mem::transmute;
 
-pub static SHADER_VS: &'static str = include_str!("../assets/paper.vs");
-pub static SHADER_FS: &'static str = include_str!("../assets/paper.fs");
+pub static SHADER_VS: &'static str = include_str!("../assets/shader.vs");
+pub static SHADER_FS: &'static str = include_str!("../assets/shader.fs");
+
+struct Particle {
+	pos: Vec2,
+	size: f32,
+	speed: f32,
+	phase: f32,
+}
 
 fn main() {
 	println!("main init");
@@ -40,6 +47,7 @@ fn main() {
 		let gl_ctx = WebGLContext::new();
 
 		let mut screen_size = Vec2i::zero();
+		let mut rng = rand::thread_rng();
 
 		unsafe {
 			use std::ptr::null;
@@ -60,18 +68,49 @@ fn main() {
 		shader.use_program();
 
 		let mut paper = Paper::new();
+		let mut particles = Vec::new();
+		let mut spawn_timeout = 0.0f32;
+		let mut elapsed_time = 0.0;
 
 		loop {
 			unsafe {
-				gl::Clear(gl::COLOR_BUFFER_BIT);
 				gl::Viewport(0, 0, screen_size.x, screen_size.y);
 			}
 
 			let aspect = screen_size.x as f32 / screen_size.y as f32;
 			shader.set_proj(&Mat4::scale(Vec3::new(1.0/aspect, 1.0, 1.0)));
+			shader.set_uniform_f32("u_time", elapsed_time);
+
+			let dt = 1.0/60.0;
+			let dir = Vec2::from_angle(PI/6.0);
+
+			elapsed_time += dt;
+
+			spawn_timeout -= dt;
+			if spawn_timeout <= 0.0 {
+				spawn_timeout = rng.gen_range(1.0, 5.0);
+
+				let pos = (rng.gen::<Vec2>() * 2.0 - 1.0) * Vec2::new(aspect, 1.0);
+				let size = rng.gen_range(0.2, 0.7);
+				let speed = rng.gen_range(0.02, 0.05);
+
+				particles.push(Particle {
+					pos, size, speed,
+					phase: 0.0
+				});
+			}
+
+			for p in particles.iter_mut() {
+				p.phase += dt / 6.0;
+				p.pos = p.pos + dir * p.speed * dt;
+			}
 
 			paper.clear();
-			paper.build_circle(Vec2::zero(), 0.5, Color::grey_a(0.0, 0.5));
+			for p in particles.iter() {
+				let a = 0.5 * (p.phase*PI).sin().powf(0.5);
+				// paper.build_circle(p.pos, p.size, Color::grey_a(0.0, a));
+				paper.build_circle(p.pos, p.size, Color::rgba(171.0/255.0, 115.0/255.0, 211.0/255.0, a));
+			}
 			paper.draw();
 
 			yield;
