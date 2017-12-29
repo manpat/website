@@ -81,5 +81,5 @@ void main() {
 		+ snoise(gl_FragCoord.xy /128.0) / 2.0
 		+ snoise(gl_FragCoord.xy /256.0 + u_time / 8.0) / 1.0;
 
-	gl_FragColor = v_color + vec4(vec3(val * 12.0 / 255.0), 0.0);
+	gl_FragColor = v_color + vec4(vec3(0.0), val * 12.0 / 255.0);
 }

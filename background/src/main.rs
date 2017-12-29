@@ -108,8 +108,7 @@ fn main() {
 			paper.clear();
 			for p in particles.iter() {
 				let a = 0.5 * (p.phase*PI).sin().powf(0.5);
-				// paper.build_circle(p.pos, p.size, Color::grey_a(0.0, a));
-				paper.build_circle(p.pos, p.size, Color::rgba(171.0/255.0, 115.0/255.0, 211.0/255.0, a));
+				paper.build_circle(p.pos, p.size, Color::grey_a(0.0, a));
 			}
 			paper.draw();
 
