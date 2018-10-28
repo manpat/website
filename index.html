@@ -26,7 +26,7 @@
 			height: 100vh;
 			top: 0;
 			left: 0;
-			position: absolute;
+			position: fixed;
 			z-index: -10;
 		}
 
@@ -104,6 +104,9 @@
 		}
 
 		.roll { color: #888888; }
+
+		.roll-date { color: #888888; }
+		.roll-date::before { content: " :: "; }
 
 		.kinda-hidden::before {
 			height: 50px;
@@ -220,7 +223,7 @@
 		<div id="projects" style="display: none">
 			<p>Hey! This is all pretty barebones at the moment but I'm working on <a href="https://github.com/manpat/website">it</a>!</p>
 
-			<label>In the meantime, here's a very short list of my most recent and simply-named projects:</label>
+			<label>In the meantime, here's a few small web toys:</label>
 			<table><tbody>
 				<tr>
 					<td><a href="/garden">Garden</a></td>
@@ -237,6 +240,14 @@
 				<tr>
 					<td><a href="/experiments/sheep">Sheep</a></td>
 					<td>Faux 3D and procedural quadrupedal animation [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/sheep.rs">src</a>]</td>
+				</tr>
+				<tr>
+					<td><a href="/experiments/waves">Waves</a></td>
+					<td>Some waves with randomly generated palettes [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/waves.rs">src</a>]</td>
+				</tr>
+				<tr>
+					<td><a href="/experiments/polyhedron">Polyhedron</a></td>
+					<td>A stencil-y tetrahedron [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/polyhedron.rs">src</a>]</td>
 				</tr>
 			</tbody></table>
 
@@ -256,23 +267,31 @@
 			</div>
 		</div>
 		<div id="about" style="display: none">
-			<p>Hi! I'm a self taught programmer of about 10 years - and specialise in games and game-adjacent things.
-			My primary language is C++ but have experience in C#, and have recently taken to Rust as my goto for personal projects<br/>
-			I've also dabbled with D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
+			<p>Hi! I'm a self taught programmer of about 12 years - and specialise in games and game-adjacent things.
+			My primary language is C++ but Rust is my preference for all my personal projects<br/>
+			I've also dabbled with C#, D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
 
 			<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
 			Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
 
-			<p>I have several years experience with OpenGL, and have recently-ish become well acquainted with
-			emscripten (see: all current projects). I also have some limited experience with Android NDK</p>
+			<p>I have several years experience with OpenGL, and am well acquainted with web tech like
+			emscripten and webassembly. I also have some limited experience with Android NDK</p>
 
 			<ul>
-				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em> for just over a year</li>
-				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em> in 2015</li>
-				<li><span class="roll">Trainee</span> at <em>Valhalla Bifrost</em> in 2012</li>
+				<li><span class="roll">Tools Programmer</span> at <em>Creative Assembly</em>
+					<span class="roll-date">jun 2018 - now</span></li>
+
+				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em>
+					<span class="roll-date">aug 2016 - nov 2017</span></li>
+
+				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em>
+					<span class="roll-date">2015</span></li>
+
+				<li><span class="roll">Trainee</span> at <em>Valhalla Bifrost</em>
+					<span class="roll-date">2012</span></li>
 			</ul>
 
-			<p>Born in NZ, raised in Australia, currently in London</p>
+			<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
 		</div>
 		<div id="contact" style="display: none">
 			<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
