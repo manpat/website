@@ -13,8 +13,8 @@
 			width: 100%;
 			height: 100%;
 			margin: 0;
-			background: #99e1c5; /* border color */
-			color: #393630;
+			background: #5d293f; /* border color */
+			color: #c5aab2;
 			font-family: sans-serif;
 			overflow: hidden;
 		}
@@ -38,14 +38,14 @@
 			left: 10px;
 			position: fixed;
 			z-index: 0;
-			background: #fff;
+			background: #ff6b94;
 		}
 
 		a::after {
 			content: "^";
 			font-size: small;
 			font-weight: lighter;
-			color: #86d58a;
+			color: #d5869a;
 			vertical-align: top;
 		}
 
@@ -53,17 +53,17 @@
 			text-decoration: none;
 			font-weight: bold;
 			font-style: italic;
-			color: hsl(152.2, 40.6%, 46.9%);
+			color: hsl(326.2, 25.2%, 69.6%);
 			transition: color 0.6s cubic-bezier(0.16, 0.79, 0.13, 0.78);
 		}
 
 		a:hover {
-			color: hsl(158.6, 63.5%, 77.5%);
+			color: hsl(347.3, 100%, 76.9%);
 		}
 
 		h1 {
-			color: #ff96fd;
-			text-shadow: 4px 4px #0bf9f1;
+			color: #F0F0F0;
+			text-shadow: 4px 4px #0000001a;
 
 			font-weight: bolder;
 			font-size: 3em;
@@ -72,10 +72,12 @@
 		}
 
 		h2 {
+			color: #e0e0e0;
+			text-shadow: 3px 3px #0000001a;
+
 			margin-bottom: 0.25em;
 			margin-top: 0;
 			font-size: 2em;
-			color: #53ffbc;
 		}
 
 		ul {
@@ -96,16 +98,16 @@
 			padding-right: 10px;
 		}
 
-		.role, .role-date { color: #888888; }
+		.role, .role-date { color: #b66c83; }
 		.role-date::before { content: " :: "; }
 
 		section {
-			background: #c9ffea;
+			background: #5d293f;
 			width: 100%;
-			padding-top: 20px;
-			padding-bottom: 20px;
+			padding: 20px;
 
 			margin-bottom: 50px;
+			box-shadow: 8px 8px rgba(149, 13, 104, 0.23);
 		}
 
 		header {
@@ -114,70 +116,46 @@
 			display: flex;
 			justify-content: flex-end;
 			flex-direction: column;
-			padding-left: 10px;
+
+			width: 650px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		p {
 			margin-top: 10px;
 			margin-bottom: 10px;
-			line-height: 1em;
+			line-height: 1.1em;
 		}
 
 		section h3 {
 			margin: 0;
-			margin-left: 10px;
+			/*margin-left: 10px;*/
+			margin-bottom: 10px;
+			font-size: 24px;
 		}
 
 		footer {
 			text-align: center;
 			font-size: 10pt;
-			background: #c9ffea;
+			background: #5d293f;
 		}
 
 		/* probably portrait */
-		@media screen and (max-width: 690px) {
-			main { font-size: 18px; }
-
+		@media screen and (max-width: 750px) {
 			.in-column {
 				margin-left: 10px;
 				margin-right: 10px;
 				width: auto;
 			}
-
-			section h3 {
-				margin-bottom: 10px;
-				font-size: 24px;
-			}
 		}
 
 		/* small desktop/ipad/landscape mobile */
-		@media screen and (min-width: 690px) {
-			main { font-size: 16px; }
-
+		@media screen and (min-width: 750px) {
 			.in-column {
 				margin-left: auto;
 				margin-right: auto;
 				width: 650px;
-			}
-
-			section h3 {
-				margin-bottom: 10px;
-				font-size: 24px;
-
-				width: 650px;
-				margin-left: auto;
-				margin-right: auto;
-			}
-		}
-
-		/* desktop */
-		@media screen and (min-width: 900px) {
-			section h3 {
-				width: auto;
-				font-size: 28px;
-				margin-top: 10px;
-				margin-left: 10px;
-				float: left;
 			}
 		}
 	</style>
@@ -212,14 +190,14 @@
 </head>
 <body onload="init()">
 	<div class="viewport">
-		<header>
+		<header class= "in-column">
 			<h1>Patrick Monaghan</h1>
 			<h2>Games n Tools</h2>
 		</header>
 		<main>
-			<section id="projects">
+			<section id="projects" class="in-column">
 				<h3>Hello</h3>
-				<div class="in-column">
+				<div >
 					<p>Hiya, <br/> This is where I put whatever projects I'm working on</p>
 		
 					<label>Here are some small web toys:</label>
@@ -272,9 +250,9 @@
 			</section>
 
 
-			<section id="about">
+			<section id="about" class="in-column">
 				<h3>About</h3>
-				<div class="in-column">
+				<div >
 					<p>Hi! I'm a self taught programmer <span id="programming-years"></span> - and specialise in games and game-adjacent things.
 					My primary language is C++ but Rust is my preference for all my personal projects<br/>
 					I've also dabbled with C#, D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
@@ -310,9 +288,9 @@
 			</section>
 
 
-			<section id="contact">
+			<section id="contact" class="in-column">
 				<h3>Contact</h3>
-				<div class="in-column">
+				<div >
 					<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
 					</p>
 
