@@ -9,74 +9,73 @@
 
 	<title>Patrick Monaghan</title>
 	<style>
-		html {
+		html, body {
 			width: 100%;
 			height: 100%;
 			margin: 0;
-			background: #222;
-			color: #ddd;
+			background: #99e1c5; /* border color */
+			color: #393630;
 			font-family: sans-serif;
-			overflow-x: hidden;
+			overflow: hidden;
+		}
+
+		.viewport {
+			margin: 10px;
+			position: absolute;
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
+
+			overflow-y: auto;
+			z-index: 1;
 		}
 
 		canvas {
 			overflow: hidden;
 			display: block;
-			width: 100vw;
-			height: 100vh;
-			top: 0;
-			left: 0;
+			width: calc(100% - 20px);
+			height: calc(100% - 20px);
+			top: 10px;
+			left: 10px;
 			position: fixed;
-			z-index: -10;
+			z-index: 0;
+			background: #fff;
+		}
+
+		a::after {
+			content: "^";
+			font-size: small;
+			font-weight: lighter;
+			color: #86d58a;
+			vertical-align: top;
 		}
 
 		a, a:visited {
 			text-decoration: none;
 			font-weight: bold;
 			font-style: italic;
-			color: hsl(337, 46%, 54%);
+			color: hsl(152.2, 40.6%, 46.9%);
 			transition: color 0.6s cubic-bezier(0.16, 0.79, 0.13, 0.78);
 		}
 
 		a:hover {
-			color: hsl(275, 52%, 64%);
-		}
-
-		.navbar {
-			background: rgba(0, 0, 0, 0.16);
-			/*background: rgba(29, 29, 29, 0.88);*/
-			padding-top: 12px;
-			padding-bottom: 12px;
-			padding-left: 8px;
-			left: 0;
-			width: 100%;
-			position: absolute;
-		}
-
-		nav a, nav a:visited {
-			font-style: normal;
-			margin-right: 2em;
-			color: #828282;
-			font-size: 22px;
-			transition: color 0.3s cubic-bezier(0, 0.57, 0.05, 0.95);
-		}
-
-		nav a:hover {
-			color: #c1c1c1;
+			color: hsl(158.6, 63.5%, 77.5%);
 		}
 
 		h1 {
-			color: #9a9a9a;
+			color: #ff96fd;
+			text-shadow: 4px 4px #0bf9f1;
+
 			font-weight: bolder;
 			font-size: 3em;
 			margin-bottom: 0;
+			margin-top: 0;
 		}
 
 		h2 {
 			margin-bottom: 0.25em;
 			margin-top: 0;
 			font-size: 2em;
-			color: #737373;
+			color: #53ffbc;
 		}
 
 		ul {
@@ -97,94 +96,96 @@
 			padding-right: 10px;
 		}
 
-		.content {
-			max-width: 40em;
-			margin-top: 70px;
-			font-size: 18px;
-		}
+		.role, .role-date { color: #888888; }
+		.role-date::before { content: " :: "; }
 
-		.roll { color: #888888; }
-
-		.roll-date { color: #888888; }
-		.roll-date::before { content: " :: "; }
-
-		.kinda-hidden::before {
-			height: 50px;
+		section {
+			background: #c9ffea;
 			width: 100%;
-			display: block;
+			padding-top: 20px;
+			padding-bottom: 20px;
 
-			content: "";
+			margin-bottom: 50px;
 		}
 
-		@media screen and (min-width: 450px) {
-			p { margin-bottom: 1.5em; }
-			.content {
-				margin-top: 90px;
-				font-size: 16px;
+		header {
+			min-height: 100%;
+
+			display: flex;
+			justify-content: flex-end;
+			flex-direction: column;
+			padding-left: 10px;
+		}
+
+		p {
+			margin-top: 10px;
+			margin-bottom: 10px;
+			line-height: 1em;
+		}
+
+		section h3 {
+			margin: 0;
+			margin-left: 10px;
+		}
+
+		footer {
+			text-align: center;
+			font-size: 10pt;
+			background: #c9ffea;
+		}
+
+		/* probably portrait */
+		@media screen and (max-width: 690px) {
+			main { font-size: 18px; }
+
+			.in-column {
+				margin-left: 10px;
+				margin-right: 10px;
+				width: auto;
 			}
 
-			nav a, nav a:visited {
-				font-size: 22px;
-				margin-right: 1.5em;
+			section h3 {
+				margin-bottom: 10px;
+				font-size: 24px;
 			}
 		}
 
-		@media screen and (min-width: 600px) {
-			.content {
+		/* small desktop/ipad/landscape mobile */
+		@media screen and (min-width: 690px) {
+			main { font-size: 16px; }
+
+			.in-column {
 				margin-left: auto;
 				margin-right: auto;
-				width: 40em;
+				width: 650px;
 			}
 
-			.navbar{ padding-left: 0px; }
-			body {
-				margin-left: auto;
-				margin-right: auto;
-				width: 40em;
-			}
+			section h3 {
+				margin-bottom: 10px;
+				font-size: 24px;
 
-			nav {
+				width: 650px;
 				margin-left: auto;
 				margin-right: auto;
-				width: 40em;
+			}
+		}
+
+		/* desktop */
+		@media screen and (min-width: 900px) {
+			section h3 {
+				width: auto;
+				font-size: 28px;
+				margin-top: 10px;
+				margin-left: 10px;
+				float: left;
 			}
 		}
 	</style>
 
 	<script>
-		let sections = {};
-
 		function init() {
-			let content = document.getElementsByClassName("content")[0];
-			let children = content.children;
-
-			for(let i = 0; i < children.length; i++) {
-				let child = children[i];
-				sections['#'+child.id] = child;
-			}
-
-			show_section(location.hash);
-
 			deobfuscate_email_pls();
-			start_background_load();
-		}
-
-		function show_section(hash) {
-			if(hash === "#" || hash === "" || !hash) {
-				hash = "#projects";
-			}
-
-			if(!sections.hasOwnProperty(hash)) {
-				return;
-			}
-
-			for (let key in sections) {
-				if(!sections.hasOwnProperty(key))
-					continue;
-
-				let section = sections[key];
-				section.style.display = (key === hash)? "block" : "none";
-			}
+			// start_background_load();
 		}
 
 		// Apparently slightly obfuscating emails is enough to get around
@@ -209,105 +210,126 @@
 		}
 	</script>
 </head>
-<body onload="init()" onhashchange="show_section(location.hash)">
-	<h1>Patrick Monaghan</h1>
-	<h2>Games Programmer</h2>
-	<div class="navbar">
-		<nav>
-			<a href="#projects">Hello</a>
-			<a href="#about">About</a>
-			<a href="#contact">Contact</a>
-		</nav>
-	</div>
-	<div class="content">
-		<div id="projects" style="display: none">
-			<p>Hey! This is all pretty barebones at the moment but I'm working on <a href="https://github.com/manpat/website">it</a>!</p>
+<body onload="init()">
+	<div class="viewport">
+		<header>
+			<h1>Patrick Monaghan</h1>
+			<h2>Games n Tools</h2>
+		</header>
+		<main>
+			<section id="projects">
+				<h3>Hello</h3>
+				<div class="in-column">
+					<p>Hiya, <br/> This is where I put whatever projects I'm working on</p>
+		
+					<label>Here are some small web toys:</label>
+					<table><tbody>
+						<tr>
+							<td><a href="/garden">Garden</a></td>
+							<td>An experiment in drawing things a different way than I'm used to [<a href="https://github.com/manpat/garden-rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/crystal">Crystal</a></td>
+							<td>A shiny crystal generator - written as an excuse to play with half-edge lists and fancy shaders [<a href="https://github.com/manpat/crystal-rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/experiments/kaleidoscope">Kaleidoscope</a></td>
+							<td>A nice effect I've wanted to try for a while [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/kaleidoscope.rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/experiments/sheep">Sheep</a></td>
+							<td>Faux 3D and procedural quadrupedal animation [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/sheep.rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/experiments/waves">Waves</a></td>
+							<td>Some waves with randomly generated palettes [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/waves.rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/experiments/polyhedron">Polyhedron</a></td>
+							<td>A stencil-y tetrahedron [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/polyhedron.rs">src</a>]</td>
+						</tr>
+						<tr>
+							<td><a href="/wasm-toys/bubble">Bubble</a></td>
+							<td>A little world in a bubble [<a href="https://github.com/manpat/wasm-toys/blob/master/src/bin/bubble/main.rs">src</a>]</td>
+						</tr>
+					</tbody></table>
+		
+					<br/>
+					<label>Also here is my university capstone project</label>
+					<table><tbody>
+						<tr>
+							<td><a href="https://vec1.itch.io/voi">Voi</a></td>
+							<td>A 3D platformer designed around non-euclideon spaces (I was lead programmer)</td>
+						</tr>
+					</tbody></table>
+		
+					<br/>
+					<p>
+						Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
+						There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
+					</p>
+				</div>
+			</section>
 
-			<label>In the meantime, here's a few small web toys:</label>
-			<table><tbody>
-				<tr>
-					<td><a href="/garden">Garden</a></td>
-					<td>An experiment in drawing things a different way than I'm used to [<a href="https://github.com/manpat/garden-rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/crystal">Crystal</a></td>
-					<td>A shiny crystal generator - written as an excuse to play with half-edge lists and fancy shaders [<a href="https://github.com/manpat/crystal-rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/experiments/kaleidoscope">Kaleidoscope</a></td>
-					<td>A nice effect I've wanted to try for a while [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/kaleidoscope.rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/experiments/sheep">Sheep</a></td>
-					<td>Faux 3D and procedural quadrupedal animation [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/sheep.rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/experiments/waves">Waves</a></td>
-					<td>Some waves with randomly generated palettes [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/waves.rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/experiments/polyhedron">Polyhedron</a></td>
-					<td>A stencil-y tetrahedron [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/polyhedron.rs">src</a>]</td>
-				</tr>
-				<tr>
-					<td><a href="/wasm-toys/bubble">Bubble</a></td>
-					<td>A little world in a bubble [<a href="https://github.com/manpat/wasm-toys/blob/master/src/bin/bubble/main.rs">src</a>]</td>
-				</tr>
-			</tbody></table>
 
-			<br/>
-			<br/>
-			<label>Also here is my university capstone project</label>
-			<table><tbody>
-				<tr>
-					<td><a href="https://vec1.itch.io/voi">Voi</a></td>
-					<td>A 3D platformer designed around non-euclideon spaces (I was lead programmer)</td>
-				</tr>
-			</tbody></table>
+			<section id="about">
+				<h3>About</h3>
+				<div class="in-column">
+					<p>Hi! I'm a self taught programmer <span id="programming-years"></span> - and specialise in games and game-adjacent things.
+					My primary language is C++ but Rust is my preference for all my personal projects<br/>
+					I've also dabbled with C#, D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
 
-			<div class="kinda-hidden">
-				Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
-				There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
-			</div>
-		</div>
-		<div id="about" style="display: none">
-			<p>Hi! I'm a self taught programmer of about 12 years - and specialise in games and game-adjacent things.
-			My primary language is C++ but Rust is my preference for all my personal projects<br/>
-			I've also dabbled with C#, D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
+					<script>
+						let el = document.getElementById("programming-years");
+						let years = new Date().getFullYear() - 2006;
+						el.innerHTML = `of about ${years} years`
+					</script>
 
-			<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
-			Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
+					<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
+					Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
 
-			<p>I have several years experience with OpenGL, and am well acquainted with web tech like
-			emscripten and webassembly. I also have some limited experience with Android NDK</p>
+					<p>I have several years experience with OpenGL, and am well acquainted with web tech like
+					emscripten and webassembly. I also have some limited experience with Android NDK</p>
 
-			<ul>
-				<li><span class="roll">Tools Programmer</span> at <em>Creative Assembly</em>
-					<span class="roll-date">jun 2018 - now</span></li>
+					<ul>
+						<li><span class="role">Tools Programmer</span> at <em>Creative Assembly</em>
+							<span class="role-date">jun 2018 - now</span></li>
 
-				<li><span class="roll">Gameplay/Engine Programmer</span> at <em>Game Insight</em>
-					<span class="roll-date">aug 2016 - nov 2017</span></li>
+						<li><span class="role">Gameplay/Engine Programmer</span> at <em>Game Insight</em>
+							<span class="role-date">aug 2016 - nov 2017</span></li>
 
-				<li><span class="roll">Intern (QA/Programming)</span> at <em>Euclideon</em>
-					<span class="roll-date">2015</span></li>
+						<li><span class="role">Intern (QA/Programming)</span> at <em>Euclideon</em>
+							<span class="role-date">2015</span></li>
 
-				<li><span class="roll">Trainee</span> at <em>Valhalla Bifrost</em>
-					<span class="roll-date">2012</span></li>
-			</ul>
+						<li><span class="role">Trainee</span> at <em>Valhalla Bifrost</em>
+							<span class="role-date">2012</span></li>
+					</ul>
 
-			<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
-		</div>
-		<div id="contact" style="display: none">
-			<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
-			</p>
+					<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
+				</div>
+			</section>
 
-			<p>However, I do have an email address if that suits better:
-				<span class="email"><sub>_</sub><sub>dot</sub>manpat<sub>at</sub>gmail<sub>dot</sub>com</span>
-			</p>
 
-			<p>Also: it's not really a means of contact but here's a link to my github: <a href="https://github.com/manpat">manpat</a><br/>
-			</p>
-		</div>
+			<section id="contact">
+				<h3>Contact</h3>
+				<div class="in-column">
+					<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
+					</p>
+
+					<p>However, I do have an email address if that suits better:
+						<span class="email"><sub>_</sub><sub>dot</sub>manpat<sub>at</sub>gmail<sub>dot</sub>com</span>
+					</p>
+
+					<p>Also: it's not really a means of contact but here's a link to my github: <a href="https://github.com/manpat">manpat</a><br/>
+					</p>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> -
+			<a href="https://github.com/manpat/website">src</a>
+		</footer>
 	</div>
 	<canvas id="canvas"></canvas>
 </body>
