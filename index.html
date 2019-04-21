@@ -115,9 +115,10 @@
 			filter: grayscale(0%);
 		}
 
-		i.twitter { background-image: url(/twitter.svg); }
-		i.github { background-image: url(/github.svg); }
-		i.email { background-image: url(/email.svg); }
+		i.twitter { background-image: url(twitter.svg); }
+		i.github { background-image: url(github.svg); }
+		i.youtube { background-image: url(youtube.svg); }
+		i.email { background-image: url(email.svg); }
 
 		.icon-box {
 			display: flex;
@@ -180,6 +181,26 @@
 				width: 650px;
 			}
 		}
+
+		footer {
+			position: relative;
+		}
+
+		.icon-attribution-panel {
+			display: none;
+			background-color: #753550;
+			position: fixed;
+
+			align-content: center;
+
+			width: calc(100% - 20px);
+			height: 100px;
+			top: calc(50% - 50px);
+		}
+
+		.icon-attribution.active + .icon-attribution-panel {
+			display: grid;
+		}
 	</style>
 
 	<script>
@@ -220,7 +241,7 @@
 		<main>
 			<section id="projects" class="in-column">
 				<h3>Hello</h3>
-				<p>Hiya, here are some web toys I made</p>
+				<p>Here are some web toys I made</p>
 	
 				<table><tbody>
 					<tr>
@@ -254,7 +275,8 @@
 				</tbody></table>
 	
 				<br/>
-				<label>Also here is my university capstone project</label>
+
+				<label>Here is my university capstone project</label>
 				<table><tbody>
 					<tr>
 						<td><a href="https://vec1.itch.io/voi">Voi</a></td>
@@ -263,17 +285,14 @@
 				</tbody></table>
 	
 				<br/>
-				<p>
-					Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
-					There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
-				</p>
+
+				<p>Here's <a href="http://iwrite.software/">my old blog from uni</a></p>
+				<p>There are a few cool looking things there that I'd like to preserve, but most of the text can <sub>(should)</sub> probably be ignored</p>
 			</section>
 
 			<section id="about" class="in-column">
 				<h3>Who am I</h3>
-				<p>I'm a self taught programmer <span id="programming-years"></span> and I specialise in games and game-adjacent things.</p>
-				<p>My primary language is C++ but Rust is my preference for all my personal projects.</p>
-				<p>I've also used C#, Python, and JS on the odd occasion, and can read x86 Assembly when I absolutely must </p>
+				<p>I'm a self taught programmer <span id="programming-years"></span> and I specialise in games and game&#8209;adjacent <!-- non breaking hyphen, whuddup --> things</p>
 
 				<script>
 					let el = document.getElementById("programming-years");
@@ -281,16 +300,17 @@
 					el.innerHTML = `of about ${years} years`
 				</script>
 
-				<p>I have several years experience with OpenGL, and am well acquainted with web tech like
-				emscripten and webassembly. I also have some limited experience with Android NDK</p>
+				<p>I like flat shaded and textureless things, audio synthesis, and on the odd occasion <a href="https://github.com/manpat/spider-butter-rs">implementing http from scratch</a></p>
 
-				<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
+				<p>I think realistic graphics in games are overrated and that audio deserves more love</p>
+
+				<p>I want to make cool things</p>
+
+				<p>Born in NZ, raised in Australia, living in the UK</p>
 			</section>
 
 			<section id="experience" class="in-column">
-				<h3>Experience</h3>
-
-				<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016</p>
+				<h3>What I've done</h3>
 
 				<ul>
 					<li><span class="role">Tools Programmer</span> at <em>Creative Assembly</em>
@@ -305,27 +325,46 @@
 					<li><span class="role">Trainee</span> at <em>Valhalla Bifrost</em>
 						<span class="role-date">2012</span></li>
 				</ul>
+
+				<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016</p>
+			</section>
+
+			<section id="experience" class="in-column">
+				<h3>What I can do</h3>
+				
+				<p>I know C++ well enough to use sfinae effectively but also well enough to not use it everywhere</p>
+				<p>Can write Rust, and prefer it when given a choice</p>
+				<p>Can write <em>good enough</em> C#, Python, and JS when I need to</p>
+				<p>Can read x86 Assembly when I absolutely must</p>
+
+				<p>Have been using OpenGL for almost as long as I've been programming</p>
+				<p>Familiar with emscripten and webassembly</p>
 			</section>
 
 			<section id="contact" class="in-column icon-box">
 				<a href="http://twitter.com/_manpat"><i class="twitter"></i></a>
 				<a href="https://github.com/manpat"><i class="github"></i></a>
+				<a href="https://www.youtube.com/user/ManpatDoesThings"><i class="youtube"></i></a>
 				<a class="email"><i class="email"></i></a>
 			</section>
 		</main>
 
 		<footer>
 			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> -
-			<a href="https://github.com/manpat/website">src</a>
+			<a href="https://github.com/manpat/website">src</a> -
+			<a class="icon-attribution" href="#" onclick="this.classList.toggle('active')">attribution</a>
 
-			<div style="display: none">
-				<div>
-					Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-				</div>
+			<div class="icon-attribution-panel">
+				<p>
+					Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a>,
+					<a href="https://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a>,
+					<a href="https://www.flaticon.com/authors/elegant-themes" title="Elegant Themes">Elegant Themes</a>
+				</p>
 
-				<div>
-					Icons made by <a href="https://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-				</div>
+				<p>
+					<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+					- from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+				</p>
 			</div>
 		</footer>
 	</div>

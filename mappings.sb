@@ -2,6 +2,7 @@
 # /website_background.js => background/target/asmjs-unknown-emscripten/debug/background.js
 /website_background.js => background/target/asmjs-unknown-emscripten/release/background.js
 
-/twitter.svg => assets/twitter-logo-button.svg
-/github.svg => assets/github-logo.svg
-/email.svg => assets/envelope.svg
+/twitter.svg => assets/twitter-logo-button.svg [image/svg+xml]
+/github.svg => assets/github-logo.svg [image/svg+xml]
+/youtube.svg => assets/youtube-logo.svg [image/svg+xml]
+/email.svg => assets/envelope.svg [image/svg+xml]
