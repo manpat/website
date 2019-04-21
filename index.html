@@ -101,6 +101,29 @@
 		.role, .role-date { color: #b66c83; }
 		.role-date::before { content: " :: "; }
 
+		i {
+			display: inline-block;
+			background-repeat: round;
+			filter: grayscale(100%) brightness(0%);
+			width: 48px;
+			height: 48px;
+
+			transition: filter 0.2s cubic-bezier(0.16, 0.79, 0.13, 0.78);
+		}
+
+		i:hover {
+			filter: grayscale(0%);
+		}
+
+		i.twitter { background-image: url(/twitter.svg); }
+		i.github { background-image: url(/github.svg); }
+		i.email { background-image: url(/email.svg); }
+
+		.icon-box {
+			display: flex;
+			justify-content: space-evenly;
+		}
+
 		section {
 			background: #5d293f;
 			width: 100%;
@@ -117,7 +140,7 @@
 			justify-content: flex-end;
 			flex-direction: column;
 
-			width: 650px;
+			width: 690px;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -130,7 +153,6 @@
 
 		section h3 {
 			margin: 0;
-			/*margin-left: 10px;*/
 			margin-bottom: 10px;
 			font-size: 24px;
 		}
@@ -143,7 +165,7 @@
 
 		/* probably portrait */
 		@media screen and (max-width: 750px) {
-			.in-column {
+			header, .in-column {
 				margin-left: 10px;
 				margin-right: 10px;
 				width: auto;
@@ -170,11 +192,12 @@
 		// 	email-scraping bots, n' all that
 		// Too bad if you've got JS disabled :T
 		function deobfuscate_email_pls() {
-			let els = document.getElementsByClassName('email');
-			for(let el of els) {
-				let text = el.innerHTML.replace(/<sub>(\w+)<\/sub>/g,
-					(m, w) => ({"dot": '.', "at": '@', "_": "0x5f"})[w]);
-				el.innerHTML = `<a href="mailto:${text}">${text}</a>`;
+			let obfuscated_email = "{_}{dot}manpat{at}gmail{dot}com";
+			let text = obfuscated_email.replace(/{(\w+)}/g,
+				(m, w) => ({"dot": '.', "at": '@', "_": "0x5f"})[w]);
+
+			for(let el of document.querySelectorAll('a.email')) {
+				el.href = `mailto:${text}`;
 			}
 		}
 
@@ -190,123 +213,120 @@
 </head>
 <body onload="init()">
 	<div class="viewport">
-		<header class= "in-column">
+		<header>
 			<h1>Patrick Monaghan</h1>
 			<h2>Games n Tools</h2>
 		</header>
 		<main>
 			<section id="projects" class="in-column">
 				<h3>Hello</h3>
-				<div >
-					<p>Hiya, <br/> This is where I put whatever projects I'm working on</p>
-		
-					<label>Here are some small web toys:</label>
-					<table><tbody>
-						<tr>
-							<td><a href="/garden">Garden</a></td>
-							<td>An experiment in drawing things a different way than I'm used to [<a href="https://github.com/manpat/garden-rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/crystal">Crystal</a></td>
-							<td>A shiny crystal generator - written as an excuse to play with half-edge lists and fancy shaders [<a href="https://github.com/manpat/crystal-rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/experiments/kaleidoscope">Kaleidoscope</a></td>
-							<td>A nice effect I've wanted to try for a while [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/kaleidoscope.rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/experiments/sheep">Sheep</a></td>
-							<td>Faux 3D and procedural quadrupedal animation [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/sheep.rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/experiments/waves">Waves</a></td>
-							<td>Some waves with randomly generated palettes [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/waves.rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/experiments/polyhedron">Polyhedron</a></td>
-							<td>A stencil-y tetrahedron [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/polyhedron.rs">src</a>]</td>
-						</tr>
-						<tr>
-							<td><a href="/wasm-toys/bubble">Bubble</a></td>
-							<td>A little world in a bubble [<a href="https://github.com/manpat/wasm-toys/blob/master/src/bin/bubble/main.rs">src</a>]</td>
-						</tr>
-					</tbody></table>
-		
-					<br/>
-					<label>Also here is my university capstone project</label>
-					<table><tbody>
-						<tr>
-							<td><a href="https://vec1.itch.io/voi">Voi</a></td>
-							<td>A 3D platformer designed around non-euclideon spaces (I was lead programmer)</td>
-						</tr>
-					</tbody></table>
-		
-					<br/>
-					<p>
-						Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
-						There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
-					</p>
-				</div>
+				<p>Hiya, here are some web toys I made</p>
+	
+				<table><tbody>
+					<tr>
+						<td><a href="/garden">Garden</a></td>
+						<td>An experiment in drawing things a different way than I'm used to [<a href="https://github.com/manpat/garden-rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/crystal">Crystal</a></td>
+						<td>A shiny crystal generator - written as an excuse to play with half-edge lists and fancy shaders [<a href="https://github.com/manpat/crystal-rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/experiments/kaleidoscope">Kaleidoscope</a></td>
+						<td>A nice effect I've wanted to try for a while [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/kaleidoscope.rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/experiments/sheep">Sheep</a></td>
+						<td>Faux 3D and procedural quadrupedal animation [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/sheep.rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/experiments/waves">Waves</a></td>
+						<td>Some waves with randomly generated palettes [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/waves.rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/experiments/polyhedron">Polyhedron</a></td>
+						<td>A stencil-y tetrahedron [<a href="https://github.com/manpat/web-experiments-rs/blob/master/src/bin/polyhedron.rs">src</a>]</td>
+					</tr>
+					<tr>
+						<td><a href="/wasm-toys/bubble">Bubble</a></td>
+						<td>A little world in a bubble [<a href="https://github.com/manpat/wasm-toys/blob/master/src/bin/bubble/main.rs">src</a>]</td>
+					</tr>
+				</tbody></table>
+	
+				<br/>
+				<label>Also here is my university capstone project</label>
+				<table><tbody>
+					<tr>
+						<td><a href="https://vec1.itch.io/voi">Voi</a></td>
+						<td>A 3D platformer designed around non-euclideon spaces (I was lead programmer)</td>
+					</tr>
+				</tbody></table>
+	
+				<br/>
+				<p>
+					Also if you <em>really</em> want here's a <a href="http://iwrite.software/">link to my old blog</a> from uni. <br/>
+					There are a few cool looking things there that I'd like to preserve, but most of the text can probably be ignored.
+				</p>
 			</section>
-
 
 			<section id="about" class="in-column">
-				<h3>About</h3>
-				<div >
-					<p>Hi! I'm a self taught programmer <span id="programming-years"></span> - and specialise in games and game-adjacent things.
-					My primary language is C++ but Rust is my preference for all my personal projects<br/>
-					I've also dabbled with C#, D, Python, JS, Go, Clojure, and good ol' x86 Assembly. </p>
+				<h3>Who am I</h3>
+				<p>I'm a self taught programmer <span id="programming-years"></span> and I specialise in games and game-adjacent things.</p>
+				<p>My primary language is C++ but Rust is my preference for all my personal projects.</p>
+				<p>I've also used C#, Python, and JS on the odd occasion, and can read x86 Assembly when I absolutely must </p>
 
-					<script>
-						let el = document.getElementById("programming-years");
-						let years = new Date().getFullYear() - 2006;
-						el.innerHTML = `of about ${years} years`
-					</script>
+				<script>
+					let el = document.getElementById("programming-years");
+					let years = new Date().getFullYear() - 2006;
+					el.innerHTML = `of about ${years} years`
+				</script>
 
-					<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016.
-					Spent much of that time learning Unity and getting a working knowledge of Blender down</p>
+				<p>I have several years experience with OpenGL, and am well acquainted with web tech like
+				emscripten and webassembly. I also have some limited experience with Android NDK</p>
 
-					<p>I have several years experience with OpenGL, and am well acquainted with web tech like
-					emscripten and webassembly. I also have some limited experience with Android NDK</p>
-
-					<ul>
-						<li><span class="role">Tools Programmer</span> at <em>Creative Assembly</em>
-							<span class="role-date">jun 2018 - now</span></li>
-
-						<li><span class="role">Gameplay/Engine Programmer</span> at <em>Game Insight</em>
-							<span class="role-date">aug 2016 - nov 2017</span></li>
-
-						<li><span class="role">Intern (QA/Programming)</span> at <em>Euclideon</em>
-							<span class="role-date">2015</span></li>
-
-						<li><span class="role">Trainee</span> at <em>Valhalla Bifrost</em>
-							<span class="role-date">2012</span></li>
-					</ul>
-
-					<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
-				</div>
+				<p>Born in NZ, raised in Australia, currently in Horsham, UK</p>
 			</section>
 
+			<section id="experience" class="in-column">
+				<h3>Experience</h3>
 
-			<section id="contact" class="in-column">
-				<h3>Contact</h3>
-				<div >
-					<p>I'm most readily available through twitter: <a href="http://twitter.com/_manpat">@_manpat</a> <br/>
-					</p>
+				<p>I completed a Bachelor in Game Development at <em>SAE Institute Brisbane</em> in 2016</p>
 
-					<p>However, I do have an email address if that suits better:
-						<span class="email"><sub>_</sub><sub>dot</sub>manpat<sub>at</sub>gmail<sub>dot</sub>com</span>
-					</p>
+				<ul>
+					<li><span class="role">Tools Programmer</span> at <em>Creative Assembly</em>
+						<span class="role-date">jun 2018 - now</span></li>
 
-					<p>Also: it's not really a means of contact but here's a link to my github: <a href="https://github.com/manpat">manpat</a><br/>
-					</p>
-				</div>
+					<li><span class="role">Gameplay/Engine Programmer</span> at <em>Game Insight</em>
+						<span class="role-date">aug 2016 - nov 2017</span></li>
+
+					<li><span class="role">Intern (QA/Programming)</span> at <em>Euclideon</em>
+						<span class="role-date">2015</span></li>
+
+					<li><span class="role">Trainee</span> at <em>Valhalla Bifrost</em>
+						<span class="role-date">2012</span></li>
+				</ul>
+			</section>
+
+			<section id="contact" class="in-column icon-box">
+				<a href="http://twitter.com/_manpat"><i class="twitter"></i></a>
+				<a href="https://github.com/manpat"><i class="github"></i></a>
+				<a class="email"><i class="email"></i></a>
 			</section>
 		</main>
 
 		<footer>
 			<a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> -
 			<a href="https://github.com/manpat/website">src</a>
+
+			<div style="display: none">
+				<div>
+					Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+				</div>
+
+				<div>
+					Icons made by <a href="https://www.flaticon.com/authors/bogdan-rosu" title="Bogdan Rosu">Bogdan Rosu</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+				</div>
+			</div>
 		</footer>
 	</div>
 	<canvas id="canvas"></canvas>

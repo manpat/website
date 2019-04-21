@@ -1,3 +1,7 @@
 / => index.html
 # /website_background.js => background/target/asmjs-unknown-emscripten/debug/background.js
 /website_background.js => background/target/asmjs-unknown-emscripten/release/background.js
+
+/twitter.svg => assets/twitter-logo-button.svg
+/github.svg => assets/github-logo.svg
+/email.svg => assets/envelope.svg
