@@ -203,10 +203,16 @@
 		}
 	</style>
 
+	<script src="/support.js" defer></script>
+	<script src="/input.js" defer></script>
+	<script src="/gl.js" defer></script>
+
 	<script>
-		function init() {
+		"use strict";
+
+		async function init() {
 			deobfuscate_email_pls();
-			// start_background_load();
+			start_background_load();
 		}
 
 		// Apparently slightly obfuscating emails is enough to get around
@@ -222,13 +228,13 @@
 			}
 		}
 
-		function start_background_load() {
-			var script_node = document.createElement("script");
+		let engine;
 
-			script_node.type = "text/javascript";
-			script_node.src = "/website_background.js";
+		async function start_background_load() {
+			let engine_promise = compile_engine("/background.wasm");
+			let canvas = document.getElementById("canvas");
 
-			document.head.appendChild(script_node);
+			engine = await initialise_engine(await engine_promise, canvas, {});
 		}
 	</script>
 </head>

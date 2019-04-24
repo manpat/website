@@ -1,6 +1,11 @@
 / => index.html
-# /website_background.js => background/target/asmjs-unknown-emscripten/debug/background.js
-/website_background.js => background/target/asmjs-unknown-emscripten/release/background.js
+
+/background.wasm => background/target/wasm32-unknown-unknown/debug/background.wasm
+# /background.wasm => background/target/wasm32-unknown-unknown/release/background.wasm
+
+/support.js => background/engine/bindings/support.js [text/javascript]
+/input.js => background/engine/bindings/input.js [text/javascript]
+/gl.js => background/engine/bindings/gl.js [text/javascript]
 
 /twitter.svg => assets/twitter-logo-button.svg [image/svg+xml]
 /github.svg => assets/github-logo.svg [image/svg+xml]

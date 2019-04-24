@@ -1,2 +1,2 @@
 [build]
-target = "asmjs-unknown-emscripten"
+target = "wasm32-unknown-unknown"
