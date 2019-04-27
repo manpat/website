@@ -47,7 +47,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 [[package]]
 name = "common"
 version = "0.1.0"
-source = "git+https://github.com/manpat/common-rs.git#a81b59dd6c82a319d26b3276f068c0ee116a2415"
+source = "git+https://github.com/manpat/common-rs.git#6277e427d03d4ec9ff730f1cd9341be147e175b8"
 dependencies = [
  "rand 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
