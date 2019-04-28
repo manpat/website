@@ -8,6 +8,8 @@ use wasm_toys::DT;
 use wasm_toys::graphics::*;
 use wasm_toys::graphics::camera::*;
 
+mod particles;
+
 fn main() {
 	wasm_toys::init_engine(Background::new());
 }
@@ -16,35 +18,25 @@ struct Background {
 	program: gl::ProgramID,
 	mesh: DynamicMesh<Vertex>,
 	camera: Camera,
+
+	particles: particles::ParticleSystem,
 }
 
 impl Background {
 	fn new() -> Background {
-		let mut shader = include_str!("color_alpha.glsl")
-			.split("/* @@@ */");
-
-		let program = create_shader(
-			shader.next().unwrap(),
-			shader.next().unwrap(),
+		let program = create_shader_combined(
+			include_str!("color_alpha.glsl"),
 			&["position", "color"]
 		);
 
-		let mesh = DynamicMesh::new();
-
 		let mut camera = Camera::new();
-		camera.set_near_far(-1.0, 1000.0);
-		camera.set_projection(Projection::Orthographic{ scale: 2.0 });
-
-		let cam_ori = 
-			  Quat::new(Vec3::from_y(1.0), PI/4.0)
-			* Quat::new(Vec3::from_x(1.0), -PI/8.0);
-
-		camera.set_orientation(cam_ori);
-		camera.set_position(cam_ori.forward() * -3.0);
+		camera.set_near_far(-50.0, 50.0);
+		camera.set_projection(Projection::Orthographic{ scale: 3.0 });
 
 		Background {
 			program,
-			mesh,
+			mesh: DynamicMesh::new(),
+			particles: particles::ParticleSystem::new(),
 			camera,
 		}
 	}
@@ -85,9 +77,9 @@ impl EngineClient for Background {
 			Vertex::new(Vec3::new( 1.0,-4.0, 1.0), Vec4::zero()),
 		]);
 
-		let reveal_time = 2.0;
+		let reveal_time = 4.0;
 
-		let reveal_phase = ((time-0.5) / reveal_time).clamp(0.0, 1.0) * PI;
+		let reveal_phase = (time / reveal_time).clamp(0.0, 1.0) * PI;
 		let pos = reveal_phase.cos()*1.0 - 1.0;
 
 		self.mesh.add_quad(&[
@@ -121,6 +113,12 @@ impl EngineClient for Background {
 		]);
 
 		self.mesh.draw(gl::DrawMode::Triangles);
+
+		// Draw particles
+		if ctx.ticks > 200 {
+			self.particles.update();
+			self.particles.draw(&self.camera);
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-precision highp float;
+precision mediump float;
 
 uniform mat4 proj_view;
 
@@ -16,7 +16,7 @@ void main() {
 /* @@@ */
 
 
-precision highp float;
+precision mediump float;
 
 varying vec4 v_color;
 
