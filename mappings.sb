@@ -2,7 +2,7 @@
 
 import background
 
-/support.js => background/engine/bindings/support.js [text/javascript]
+/main.js => background/engine/bindings/main.js [text/javascript]
 /input.js => background/engine/bindings/input.js [text/javascript]
 /gl.js => background/engine/bindings/gl.js [text/javascript]
 

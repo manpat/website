@@ -1,17 +1,13 @@
 #![feature(clamp)]
 
-use wasm_toys::common::*;
-use wasm_toys::console_log;
-use wasm_toys::{EngineClient, UpdateContext};
-
-use wasm_toys::DT;
-use wasm_toys::graphics::*;
+use wasm_toys::prelude::*;
+use wasm_toys::UpdateContext;
 use wasm_toys::graphics::camera::*;
 
 mod particles;
 
 fn main() {
-	wasm_toys::init_engine(Background::new());
+	wasm_toys::init_engine(|| Background::new());
 }
 
 struct Background {
