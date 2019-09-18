@@ -11,7 +11,7 @@ fn main() {
 }
 
 struct Background {
-	program: gl::ProgramID,
+	program: Shader,
 	mesh: DynamicMesh<Vertex>,
 	camera: Camera,
 
@@ -20,7 +20,7 @@ struct Background {
 
 impl Background {
 	fn new() -> Background {
-		let program = create_shader_combined(
+		let program = Shader::from_combined(
 			include_str!("color_alpha.glsl"),
 			&["position", "color"]
 		);
@@ -51,26 +51,44 @@ impl EngineClient for Background {
 		self.camera.set_orientation(cam_ori);
 		self.camera.set_position(cam_ori.forward() * -3.0);
 
-		unsafe {
-			gl::use_program(self.program);
-			gl::set_uniform_mat4(self.program, "proj_view", &self.camera.projection_view());
-		}
+		self.program.bind();
+		self.program.set_uniform("proj_view", self.camera.projection_view());
 
 		// Draw mask into depth buffer
 		set_color_write(false);
 
 		self.mesh.clear();
+
+		// north floor
 		self.mesh.add_quad(&[
-			Vertex::new(Vec3::new(-1.0, 0.0, 1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0, 0.0, 1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0,-4.0, 1.0), Vec4::zero()),
-			Vertex::new(Vec3::new(-1.0,-4.0, 1.0), Vec4::zero()),
+			Vertex::new(Vec3::new( 10.0, 0.0, -1.0), Vec4::new(1.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new( -1.0, 0.0, -1.0), Vec4::new(1.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new( -1.0, 0.0,-10.0), Vec4::new(1.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new( 10.0, 0.0,-10.0), Vec4::new(1.0, 1.0, 0.0, 1.0)),
 		]);
+
+		// west floor
 		self.mesh.add_quad(&[
-			Vertex::new(Vec3::new( 1.0, 0.0, 1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0, 0.0,-1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0,-4.0,-1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0,-4.0, 1.0), Vec4::zero()),
+			Vertex::new(Vec3::new( -1.0, 0.0,-10.0), Vec4::new(1.0, 0.0, 1.0, 1.0)),
+			Vertex::new(Vec3::new( -1.0, 0.0,  1.0), Vec4::new(1.0, 0.0, 1.0, 1.0)),
+			Vertex::new(Vec3::new(-10.0, 0.0,  1.0), Vec4::new(1.0, 0.0, 1.0, 1.0)),
+			Vertex::new(Vec3::new(-10.0, 0.0,-10.0), Vec4::new(1.0, 0.0, 1.0, 1.0)),
+		]);
+
+		// south floor
+		self.mesh.add_quad(&[
+			Vertex::new(Vec3::new(-10.0, 0.0, 1.0), Vec4::new(0.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new(  1.0, 0.0, 1.0), Vec4::new(0.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new(  1.0, 0.0,10.0), Vec4::new(0.0, 1.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new(-10.0, 0.0,10.0), Vec4::new(0.0, 1.0, 0.0, 1.0)),
+		]);
+
+		// east floor
+		self.mesh.add_quad(&[
+			Vertex::new(Vec3::new( 1.0, 0.0, 10.0), Vec4::new(1.0, 0.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new( 1.0, 0.0, -1.0), Vec4::new(1.0, 0.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new(10.0, 0.0, -1.0), Vec4::new(1.0, 0.0, 0.0, 1.0)),
+			Vertex::new(Vec3::new(10.0, 0.0, 10.0), Vec4::new(1.0, 0.0, 0.0, 1.0)),
 		]);
 
 		let reveal_time = 4.0;
@@ -79,10 +97,10 @@ impl EngineClient for Background {
 		let pos = reveal_phase.cos()*1.0 - 1.0;
 
 		self.mesh.add_quad(&[
-			Vertex::new(Vec3::new(-1.0, pos,-1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0, pos,-1.0), Vec4::zero()),
-			Vertex::new(Vec3::new( 1.0, pos, 1.0), Vec4::zero()),
-			Vertex::new(Vec3::new(-1.0, pos, 1.0), Vec4::zero()),
+			Vertex::new(Vec3::new(-1.0, pos,-1.0), Vec4::splat(1.0)),
+			Vertex::new(Vec3::new( 1.0, pos,-1.0), Vec4::splat(1.0)),
+			Vertex::new(Vec3::new( 1.0, pos, 1.0), Vec4::splat(1.0)),
+			Vertex::new(Vec3::new(-1.0, pos, 1.0), Vec4::splat(1.0)),
 		]);
 
 		self.mesh.draw(gl::DrawMode::Triangles);
