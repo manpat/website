@@ -1,3 +1,4 @@
 [submodule "background/engine"]
 	path = background/engine
 	url = https://github.com/manpat/wasm-toys.git
+	branch = lite

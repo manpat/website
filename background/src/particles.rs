@@ -1,8 +1,4 @@
-
-use wasm_toys::DT;
-use wasm_toys::graphics::*;
-use wasm_toys::common::*;
-
+use wasm_toys::prelude::*;
 use wasm_toys::imports::util::math_random;
 
 fn random() -> f32 { unsafe{ math_random() * 2.0 - 1.0 } }
