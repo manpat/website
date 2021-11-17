@@ -40,6 +40,11 @@ impl Background {
 
 impl EngineClient for Background {
 	fn update(&mut self, ctx: UpdateContext) {
+		unsafe {
+			gl::clear_color(0.0, 0.0, 0.0, 0.0);
+			gl::clear(gl::COLOR_BUFFER_BIT | gl::DEPTH_BUFFER_BIT);
+		}
+
 		self.camera.update(ctx.viewport);
 
 		let time = ctx.ticks as f32 * DT;
