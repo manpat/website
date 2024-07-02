@@ -1,5 +1,3 @@
-#![feature(clamp)]
-
 use wasm_toys::prelude::*;
 use wasm_toys::UpdateContext;
 use wasm_toys::graphics::camera::*;
